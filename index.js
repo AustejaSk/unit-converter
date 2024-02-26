@@ -1,8 +1,8 @@
-/*
-1 meter = 3.2808 feet
-1 liter = 0.264172 gallon
-1 kilogram = 2.20462 pound
-*/
+// /*
+// 1 meter = 3.2808 feet
+// 1 liter = 0.264172 gallon
+// 1 kilogram = 2.20462 pound
+// */
 const convertBtn = document.getElementById("convert-btn")
 const num = document.getElementById("number-input")
 const lengthOutput = document.getElementById("length-output")
@@ -23,28 +23,20 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function UnitConversion() {
-    const numberInput = num.valueAsNumber
-    // Length (Meter/Feet)
-    const feet = 3.2808
-    const metersToFeet = (numberInput * feet).toFixed(3).toString()
-    const feetToMeters = (numberInput / feet).toFixed(3).toString()
-    lengthOutput.textContent += `${numberInput} meters = ${metersToFeet} feet | ${numberInput} feet = ${feetToMeters} meters`
-    // Volume (Liters/Gallons)
-    const gallon = 0.264172
-    const litersToGallons = (numberInput * gallon).toFixed(3).toString()
-    const gallonsToLiters = (numberInput / gallon).toFixed(3).toString()
-    volumeOutput.textContent += `${numberInput} liters = ${litersToGallons} gallons | ${numberInput} gallons = ${gallonsToLiters} liters`
-    // Mass (Kilograms/Pounds)
-    const pound = 2.20462
-    const kilogramsToPounds = (numberInput * pound).toFixed(3).toString()
-    const poundsToKilograms = (numberInput / pound).toFixed(3).toString()
-    massOutput.textContent += `${numberInput} kilos = ${kilogramsToPounds} pounds | ${numberInput} pounds = ${poundsToKilograms} kilos`
-    
+    const numberInput = num.valueAsNumber || 0
+    updateOutput(lengthOutput, numberInput, 3.2808, "meters", "feet")
+    updateOutput(volumeOutput, numberInput, 0.264172, "liters", "gallons")
+    updateOutput(massOutput, numberInput, 2.20462, "kilos", "pounds")
 }
 
-convertBtn.addEventListener("click", function convertUnit(){
-    lengthOutput.textContent = ""
-    volumeOutput.textContent = ""
-    massOutput.textContent = ""
+function updateOutput(element, value, factor, unitA, unitB) {
+    const convertionAtoB = (value * factor).toFixed(3)
+    const convertionBtoA = (value / factor).toFixed(3)
+    element.textContent = `${value} ${unitA} = ${convertionAtoB} ${unitB} | ${value} ${unitB} = ${convertionBtoA} ${unitA}`
+}
+
+convertBtn.addEventListener("click", function(){
     UnitConversion()
 })
+
+
